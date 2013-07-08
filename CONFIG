@@ -1,5 +1,5 @@
 CTHON04_SOLARIS_LOC=http://fedorapeople.org/gitrepos/steved/public_git/cthon04.git
-CTHON04_LOC=http://fedorapeople.org/gitrepos/steved/public_git/cthon04.git
+CTHON04_LOC=git://fedorapeople.org/home/fedora/steved/public_git/cthon04.git
 CTHON2JUNIT_LOC=http://github.com/bongiojp/cthon2junit
 REGRESSIONTEST_LOC=http://github.com/bongiojp/nfstests.git
 PYNFS_LOC=git://git.linux-nfs.org/projects/bfields/pynfs.git
