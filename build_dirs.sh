@@ -24,81 +24,26 @@ source $CONFDIR/CONFIG
 SERVER=$1
 HOSTFS=$2
 
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel60/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel60/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel60/nfsv4tcp
+declare -a arch=(hudson hudson64)
+declare -a users=(jenkins root)
+declare -a clients=(rhel60 rhel66_64 rhel55_32 ubuntu32 HamzyTest)
+declare -a tests=(nfsv3tcp nfsv3udp nfsv4tcp sigmund pynfs)
 
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_64/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_64/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_64/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/rhel55_32/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/ubuntu32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/ubuntu32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/root/ubuntu32/nfsv4tcp
-
-ssh -tt root@$SERVER chown root $HOSTFS/hudson64/root -R
-ssh -tt root@$SERVER chgrp root $HOSTFS/hudson64/root -R
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel60/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel60/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel60/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_64/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_64/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_64/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/rhel55_32/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/ubuntu32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/ubuntu32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson64/jenkins/ubuntu32/nfsv4tcp
-
-ssh -tt root@$SERVER chown jenkins $HOSTFS/hudson64/jenkins -R
-ssh -tt root@$SERVER chgrp jenkins $HOSTFS/hudson64/jenkins -R
-
-
-
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel60/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel60/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel60/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_64/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_64/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_64/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/rhel55_32/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/ubuntu32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/ubuntu32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/root/ubuntu32/nfsv4tcp
-
-ssh -tt root@$SERVER chown root $HOSTFS/hudson/root -R
-ssh -tt root@$SERVER chgrp root $HOSTFS/hudson/root -R
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel60/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel60/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel60/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_64/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_64/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_64/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/rhel55_32/nfsv4tcp
-
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/ubuntu32/nfsv3tcp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/ubuntu32/nfsv3udp
-ssh -tt root@$SERVER mkdir -p $HOSTFS/hudson/jenkins/ubuntu32/nfsv4tcp
-
-ssh -tt root@$SERVER chown jenkins $HOSTFS/hudson/jenkins -R
-ssh -tt root@$SERVER chgrp jenkins $HOSTFS/hudson/jenkins -R
+for arch in ${arch[@]}
+do
+    for user in ${users[@]}
+    do
+        for client in ${clients[@]}
+        do
+            for test in ${tests[@]}
+            do
+                echo "building directory: $HOSTFS/$arch/$user/$client/$test"
+                ssh -tt root@$SERVER mkdir -p $HOSTFS/$arch/$user/$client/$test
+            done
+        done
+        ssh -tt root@$SERVER chown $user $HOSTFS/$arch/$user -R
+        ssh -tt root@$SERVER chgrp $user $HOSTFS/$arch/$user -R
+    done
+    ssh -tt root@$SERVER chown jenkins $HOSTFS/$arch -R
+    ssh -tt root@$SERVER chgrp jenkins $HOSTFS/$arch -R
+done
