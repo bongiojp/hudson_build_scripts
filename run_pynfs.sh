@@ -37,5 +37,3 @@ perl $HOME/scripts/parse_pynfs.pl /tmp/pynfs4.0/root-results &> $WORKSPACE/pynfs
 #mkdir -p /tmp/pynfs4.1
 #sudo python testserver.py $SERVER:$HOSTFS --maketree all &> /tmp/pynfs4.1/root-results
 #perl parse_pynfs.pl /tmp/pynfs4.1/root-results &> $WORKSPACE/pynfs4.1_results.xml
-
-

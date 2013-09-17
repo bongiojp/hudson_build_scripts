@@ -41,12 +41,16 @@ $ENTIREFILE =~ s/\>/\\\>/g;
 
 if ($totfail > 0) {
     print "<testsuite name ='PYNFS' tests='1'  failures='1' time='0'>
-                <failure message='\n${ENTIREFILE}'> </failure>
+                <failure message='\n${ENTIREFILE}'>
+                </failure>
                 <system-out>${ENTIREFILE}
                 </system-out>
-          </testsuite>";
+          </testsuite>
+          ";
 } else {
-    print "<testsuite failures='0' name ='PYNFS' tests='1' time='0'></testsuite>";
+    print "<testsuite failures='0' name ='PYNFS' tests='1' time='0'
+           </testsuite>
+          ";
 }
 
 #                <success message=''/>
