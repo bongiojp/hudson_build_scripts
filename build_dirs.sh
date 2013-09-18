@@ -26,7 +26,7 @@ HOSTFS=$2
 
 declare -a arch=(hudson hudson64)
 declare -a users=(jenkins root)
-declare -a clients=(rhel60 rhel66_64 rhel55_32 ubuntu32 HamzyTest)
+declare -a clients=(rhel60 rhel55_64 rhel55_32 ubuntu32 HamzyTest)
 declare -a tests=(nfsv3tcp nfsv3udp nfsv4tcp sigmund pynfs)
 
 for arch in ${arch[@]}
