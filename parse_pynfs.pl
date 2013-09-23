@@ -40,16 +40,27 @@ $ENTIREFILE =~ s/\</\\\</g;
 $ENTIREFILE =~ s/\>/\\\>/g;
 
 if ($totfail > 0) {
-    print "<testsuite name ='PYNFS' tests='1'  failures='1' time='0'>
-                <failure message='\n${ENTIREFILE}'>
-                </failure>
-                <system-out>${ENTIREFILE}
-                </system-out>
-          </testsuite>
-          ";
+    print "
+<?xml version=\"1.0\" encoding=\"ISO8859-2\" ?>
+<testsuite name=\"pynfs.tests\" errors=\"0\" failures=\"${totfail}\" tests=\"${tottest}\" time=\"\">
+  <system-out><![CDATA[${ENTIREFILE}]]></system-out>
+  <system-err><![CDATA[${ENTIREFILE}]]></system-err>
+</testsuite>
+";
+
+#    print "<testsuite name ='PYNFS' tests='1'  failures='1' time='0'>
+#                <failure message='\n${ENTIREFILE}'>
+#                </failure>
+#                <system-out>${ENTIREFILE}
+#                </system-out>
+#          </testsuite>
+#          ";
 } else {
-    print "<testsuite failures='0' name ='PYNFS' tests='1' time='0'
-           </testsuite>
+    print "
+<?xml version=\"1.0\" encoding=\"ISO8859-2\" ?>
+<testsuite name=\"pynfs.tests\" errors=\"0\" failures=\"0\" tests=\"${tottest}\" time=\"\">
+  <system-out><![CDATA[${ENTIREFILE}]]></system-out>
+</testsuite>
           ";
 }
 
