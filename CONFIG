@@ -8,3 +8,5 @@ SIGMUND_LOC=http://github.com/bongiojp/sigmund.git
 BUILDDIR=/home/jenkins/nfsbuild
 TUXERA_LOC=http://tuxera.com/sw/qa/pjd-fstest-20090130-RC.tgz
 NFSTEST_LOC=git://git.linux-nfs.org/projects/mora/nfstest.git 
+LTP_LOC=http://downloads.sourceforge.net/project/ltp/LTP%20Source/ltp-20130904/ltp-full-20130904.tar.bz2
+KERNEL_LOC=https://www.kernel.org/pub/linux/kernel/v3.0/testing/linux-3.10-rc7.tar.xz
